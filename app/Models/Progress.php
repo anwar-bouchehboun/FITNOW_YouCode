@@ -9,6 +9,7 @@ class Progress extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['weight', 'measurements', 'performance', 'status', 'user_id'];
 
 
 
