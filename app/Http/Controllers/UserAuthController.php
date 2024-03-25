@@ -44,6 +44,9 @@ class UserAuthController extends Controller
             'message' => 'Conecte'
         ]);
     }
+
+
+    
     public function logout(){
         auth()->user()->tokens()->delete();
 
