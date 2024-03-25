@@ -24,6 +24,8 @@ L'objectif principal de ce projet est de développer une API REST pour le suivi 
 📝 En tant que developpeur, je veux que des tests sur Postman soient effectués pour valider le bon fonctionnement de l'API dans différents scénarios d'utilisation.
 
 📄 En tant que developpeur, je veux une documentation détaillée de l'API, avec une description claire de chaque endpoint, pour simplifier l'intégration par d'autres développeurs. Cette documentation sera créée à l'aide d'outils tels que Postman, Swagger, API Blueprint ou d'autres outils similaires ayant le même objectif.
+
+
 ++BONUS:++
 
 🔄 En tant qu'administrateur, possibilité de supprimer un utilisateur abonné et toutes ses données de progression enregistrées en utilisant la suppression en cascade.
