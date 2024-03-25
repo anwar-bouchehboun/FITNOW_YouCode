@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Progress;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\PregressRequest;
 
 class ProgressController extends Controller
 {
@@ -12,7 +14,22 @@ class ProgressController extends Controller
      */
     public function index()
     {
-        
+
+    }
+    public function store(PregressRequest $request)
+    {
+        $user = Auth::user();
+        $request->validated();
+        $progress = Progress::create([
+
+            'user_id' => $user->id,
+            'weight' => $request->weight,
+            'measurements' => $request->measurements,
+            'performance' => $request->performance,
+            'status' => 'Non terminé',
+        ]);
+
+        return response()->json(['message' => 'Progress saved successfully', 'progress' => $progress], 201);
     }
 
     /**
@@ -26,10 +43,7 @@ class ProgressController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
-    }
+
 
     /**
      * Display the specified resource.

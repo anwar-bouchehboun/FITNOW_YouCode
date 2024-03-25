@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PregressRequest extends FormRequest
+class UserAuthRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,11 @@ class PregressRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'weight' => 'required|numeric',
-            'measurements' => 'required|string',
-            'performance' => 'required|string',
+          
+                'name'=>'required|string',
+                'email'=>'required|string|email|unique:users',
+                'password'=>'required|min:8'
+
         ];
     }
 }

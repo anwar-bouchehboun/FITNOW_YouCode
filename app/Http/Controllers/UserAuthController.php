@@ -5,15 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\UserAuthRequest;
 
 class UserAuthController extends Controller
 {
-    public function register(Request $request){
-        $registerUserData = $request->validate([
-            'name'=>'required|string',
-            'email'=>'required|string|email|unique:users',
-            'password'=>'required|min:8'
-        ]);
+    public function register(UserAuthRequest $request){
+     $request->validated();
 
         User::create([
             'name' => $request->name,
@@ -46,7 +43,7 @@ class UserAuthController extends Controller
     }
 
 
-    
+
     public function logout(){
         auth()->user()->tokens()->delete();
 
