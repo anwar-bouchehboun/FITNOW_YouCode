@@ -45,13 +45,13 @@ class ProgressController extends Controller
 
     public function show(Progress $progress)
     {
-    if (Auth::check()) {
-        $progress = Progress::where('user_id', Auth::user()->id)->findOrFail($progress->id);
+        if (Auth::check()) {
+            $progress = Progress::where('user_id', Auth::user()->id)->findOrFail($progress->id);
 
-        return response()->json(['message' => 'Progress shown successfully', 'progress' => $progress], 200);
-    } else {
-        return response()->json(403);
-    }
+            return response()->json(['message' => 'Progress shown successfully', 'progress' => $progress], 200);
+        } else {
+            return response()->json(403);
+        }
 
 
 
@@ -65,7 +65,7 @@ class ProgressController extends Controller
             $user = Auth::user();
 
             if ($progress->user_id === $user->id) {
-               $request->validated();
+                $request->validated();
 
                 $progress->update([
                     'user_id' => $user->id,
@@ -84,7 +84,7 @@ class ProgressController extends Controller
         }
 
 
-}
+    }
 
 
     /**
@@ -92,12 +92,35 @@ class ProgressController extends Controller
      */
     public function destroy(Progress $progress)
     {
-     if (Auth::check() && $progress->user_id === Auth::user()->id) {
-        $progress->delete();
+        if (Auth::check() && $progress->user_id === Auth::user()->id) {
+            $progress->delete();
 
-        return response()->json(['message' => 'Progress deleted successfully'], 200);
+            return response()->json(['message' => 'Progress deleted successfully'], 200);
+        } else {
+            return response()->json(['message' => 'Unauthorized to delete progress'], 403);
+        }
+    }
+
+
+    // status termine
+    public function markProgressAsCompleted(Progress $progress)
+    {
+
+    if (Auth::check()) {
+
+        $user = Auth::user();
+
+        if ($progress->user_id === $user->id) {
+            $progress->update(['status' => 'Terminé']);
+
+            return response()->json(['message' => 'Progress marked as completed successfully', 'progress' => $progress], 200);
+        }
+        else {
+            return response()->json(['message' => 'Unauthorized to update progress'], 403);
+        }
     } else {
-        return response()->json(['message' => 'Unauthorized to delete progress'], 403);
+        return response()->json(['message' => 'Unauthorized'], 401);
     }
-    }
+   }
+
 }

@@ -25,7 +25,10 @@ Route::post('login', [UserAuthController::class, 'login']);
 Route::post('logout', [UserAuthController::class, 'logout'])
     ->middleware('auth:sanctum');
 Route::resource('progress', ProgressController::class)->middleware('auth:sanctum');
-;
+Route::put('progress/status/{progress}', [ProgressController::class, 'markProgressAsCompleted'])->middleware('auth:sanctum');
+
+
+
 Route::get('user', function () {
     return User::all();
 });
