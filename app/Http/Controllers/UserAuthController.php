@@ -9,6 +9,8 @@ use App\Http\Requests\UserAuthRequest;
 
 class UserAuthController extends Controller
 {
+
+
     public function register(UserAuthRequest $request){
      $request->validated();
 
