@@ -21,16 +21,14 @@ use App\Http\Controllers\UserAuthController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::resource('progress', ProgressController::class)->middleware('auth:sanctum');
+Route::put('progress/status/{progress}', [ProgressController::class, 'markProgressAsCompleted'])->middleware('auth:sanctum');
+
 Route::post('register', [UserAuthController::class, 'register']);
 Route::post('login', [UserAuthController::class, 'login']);
 Route::post('logout', [UserAuthController::class, 'logout'])
     ->middleware('auth:sanctum');
-Route::resource('progress', ProgressController::class)->middleware('auth:sanctum');
-Route::put('progress/status/{progress}', [ProgressController::class, 'markProgressAsCompleted'])->middleware('auth:sanctum');
 
 
-
-// Route::get('user', function () {
-//     return User::all();
-// });
 Route::delete('user/{user}', [UserController::class, 'destroy']);
