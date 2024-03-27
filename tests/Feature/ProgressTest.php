@@ -48,7 +48,6 @@ class ProgressTest extends TestCase
         $measurements = '120x80';
         $performance = 'Good';
 
-        // Simuler une requête avec les données de mise à jour
         $response = $this->actingAs($user)
             ->putJson("/api/progress/{$progress->id}", [
                 'weight' => $newWeight,
@@ -56,19 +55,29 @@ class ProgressTest extends TestCase
                 'performance' => $performance,
             ]);
 
-        // Vérifier que la réponse est un succès et le contenu est correct
         $response->assertStatus(200)
             ->assertJson([
                 'message' => 'Progress updated successfully',
             ]);
 
-        // Vérifier que les données ont été correctement mises à jour dans la base de données
         $this->assertDatabaseHas('progress', [
             'id' => $progress->id,
             'weight' => $newWeight,
             'measurements' => $measurements,
             'performance' => $performance,
-            // 'status' => $newStatus, // Vous n'avez pas de nouveau statut dans votre test de mise à jour
         ]);
+    }
+    public function testShowProgress()
+    {
+        $user = User::factory()->create();
+
+        $progress = Progress::factory()->create(['user_id' => $user->id]);
+
+
+        $response = $this->actingAs($user)
+        ->getJson("/api/progress/{$progress->id}");
+        $response->assertStatus(200);
+
+
     }
 }
