@@ -45,9 +45,9 @@ class AuthenticationTest extends TestCase
 
     }
 
-    public function logout()
-    {
-        auth()->user()->tokens()->delete(); 
-        return response()->json(['message' => 'logged out'], 200);
-    }
+    // public function logout()
+    // {
+    //     auth()->user()->tokens()->delete();
+    //     return response()->json(['message' => 'logged out'], 200);
+    // }
 }
